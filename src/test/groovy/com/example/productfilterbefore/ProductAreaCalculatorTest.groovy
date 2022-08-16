@@ -1,6 +1,9 @@
 package com.example.productfilterbefore
 
+import com.example.productfilterbefore.model.Circle
 import com.example.productfilterbefore.model.Product
+import com.example.productfilterbefore.model.Rectangle
+import com.example.productfilterbefore.model.Triangle
 import spock.lang.Specification
 
 class ProductAreaCalculatorTest extends Specification {
@@ -10,18 +13,19 @@ class ProductAreaCalculatorTest extends Specification {
 
   void setup() {
     def product1 = Stub(Product) {
-      getWidth() >> 10.00
-      getHeight() >> 10.00
-      getShape() >> "RECTANGLE"
+      shape >> Stub(Rectangle) {
+        getArea() >> 100
+      }
     }
     def product2 = Stub(Product) {
-      getWidth() >> 20.00
-      getHeight() >> 20.00
-      getShape() >> "RECTANGLE"
+      shape >> Stub(Triangle) {
+        getArea() >> 400
+      }
     }
     def product3 = Stub(Product) {
-      radius >> 10
-      getShape() >> "CIRCLE"
+      shape >> Stub(Circle) {
+        getArea() >> 314
+      }
     }
     productForAreaCalculation = [product1, product2, product3]
   }

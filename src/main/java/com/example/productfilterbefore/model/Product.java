@@ -9,8 +9,5 @@ public class Product {
   public String color;
   public String size;
   public String name;
-  public Double width;
-  public Double height;
-  public Double radius;
-  public String shape;
+  public Shape shape;
 }
