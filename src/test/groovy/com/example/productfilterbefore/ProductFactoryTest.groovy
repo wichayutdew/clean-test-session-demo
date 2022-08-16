@@ -20,10 +20,6 @@ class ProductFactoryTest extends Specification {
     then:
     result.size() == 1
     result[0].getName() == "BIG RED PRODUCT"
-    result[0].getWidth() == 10
-    result[0].getHeight() == 10
-    result[0].getRadius() == null
-    result[0].getShape() == "Rectangle"
   }
 
   def "should calculate product area"() {
