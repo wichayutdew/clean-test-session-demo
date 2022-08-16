@@ -16,19 +16,26 @@ class ProductFactoryTest extends Specification {
   }
 
   def "should filter product by red color"() {
+    given:
+    def expectedProductAmount = 1
+    def expectedProductName = "BIG RED PRODUCT"
+
     when:
     def result = productFactory.filter(products, "RED", "BIG")
 
     then:
-    result.size() == 1
-    result[0].getName() == "BIG RED PRODUCT"
+    result.size() == expectedProductAmount
+    result[0].getName() == expectedProductName
   }
 
   def "should calculate product area"() {
+    given:
+    def expectedTotalArea = 814
+
     when:
     def result = productFactory.calculateArea(products)
 
     then:
-    Math.round(result) == 814
+    Math.round(result) == expectedTotalArea
   }
 }
