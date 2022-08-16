@@ -13,19 +13,13 @@ class ProductAreaCalculatorTest extends Specification {
 
   void setup() {
     def product1 = Stub(Product) {
-      shape >> Stub(Rectangle) {
-        getArea() >> 100
-      }
+      getArea() >> 100
     }
     def product2 = Stub(Product) {
-      shape >> Stub(Triangle) {
-        getArea() >> 400
-      }
+      getArea() >> 400
     }
     def product3 = Stub(Product) {
-      shape >> Stub(Circle) {
-        getArea() >> 314
-      }
+      getArea() >> 314
     }
     productForAreaCalculation = [product1, product2, product3]
   }

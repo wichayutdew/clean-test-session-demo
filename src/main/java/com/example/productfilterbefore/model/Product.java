@@ -10,4 +10,8 @@ public class Product {
   public String size;
   public String name;
   public Shape shape;
+
+  public double getArea(){
+    return shape.getArea();
+  }
 }
