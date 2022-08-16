@@ -1,14 +1,14 @@
 package com.example.productfilterbefore
 
 import com.example.productfilterbefore.model.Product
-import com.example.productfilterbefore.repository.ProductJpaRepositoryImpl
+import com.example.productfilterbefore.repository.IProductRepository
 import spock.lang.Specification
 
 class ProductServiceTest extends Specification {
 
   def productFilter = Mock(ProductFilter)
-  def productJpaRepositoryImpl = Mock(ProductJpaRepositoryImpl)
-  def productService = new ProductService(productFilter, productJpaRepositoryImpl)
+  def productRepository = Mock(IProductRepository)
+  def productService = new ProductService(productFilter, productRepository)
   def product
   def products
 
@@ -26,6 +26,6 @@ class ProductServiceTest extends Specification {
 
     then:
     1 * productFilter.filter(products, _ as String, _ as String) >> filteredProducts
-    1 * productJpaRepositoryImpl.save(filteredProducts)
+    1 * productRepository.save(filteredProducts)
   }
 }

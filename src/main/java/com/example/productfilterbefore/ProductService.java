@@ -1,7 +1,7 @@
 package com.example.productfilterbefore;
 
 import com.example.productfilterbefore.model.Product;
-import com.example.productfilterbefore.repository.ProductJpaRepositoryImpl;
+import com.example.productfilterbefore.repository.IProductRepository;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.List;
 public class ProductService {
 
   private final ProductFilter productFilter;
-  private final ProductJpaRepositoryImpl productJpaRepositoryImpl;
+  private final IProductRepository productRepository;
 
   public void process(List<Product> products) {
     List<Product> filteredProducts = productFilter.filter(products, "RED", "SIZE");
 
-    productJpaRepositoryImpl.save(filteredProducts);
+    productRepository.save(filteredProducts);
   }
 }
