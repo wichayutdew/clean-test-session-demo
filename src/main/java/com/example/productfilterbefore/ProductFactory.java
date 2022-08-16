@@ -11,7 +11,7 @@ public class ProductFactory {
     var filteredList = new ArrayList<Product>();
 
     for (Product product : products) {
-      if (color.equals(product.color) && size.equals(product.size)) {
+      if (color.equals(product.getColor()) && size.equals(product.getSize())) {
         filteredList.add(product);
       }
     }
@@ -21,10 +21,10 @@ public class ProductFactory {
   public double calculateArea(List<Product> products) {
     var totalArea = 0.00;
     for (Product product : products) {
-      if ("RECTANGLE".equals(product.shape)) {
-        totalArea += (product.width * product.height);
+      if ("RECTANGLE".equals(product.getShape())) {
+        totalArea += (product.getWidth()* product.getHeight());
       } else {
-        totalArea += (Math.PI * Math.pow(product.radius, 2));
+        totalArea += (Math.PI * Math.pow(product.getRadius(), 2));
       }
     }
     return totalArea;
