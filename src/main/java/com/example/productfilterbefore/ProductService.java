@@ -1,6 +1,7 @@
 package com.example.productfilterbefore;
 
 import com.example.productfilterbefore.model.Product;
+import com.example.productfilterbefore.productfilter.ProductFilter;
 import com.example.productfilterbefore.repository.IProductRepository;
 import lombok.AllArgsConstructor;
 
@@ -13,7 +14,7 @@ public class ProductService {
   private final IProductRepository productRepository;
 
   public void process(List<Product> products) {
-    List<Product> filteredProducts = productFilter.filter(products, "RED", "SIZE");
+    List<Product> filteredProducts = productFilter.filter(products);
 
     productRepository.save(filteredProducts);
   }

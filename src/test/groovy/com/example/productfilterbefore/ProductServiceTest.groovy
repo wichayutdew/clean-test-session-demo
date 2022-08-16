@@ -1,6 +1,7 @@
 package com.example.productfilterbefore
 
 import com.example.productfilterbefore.model.Product
+import com.example.productfilterbefore.productfilter.ProductFilter
 import com.example.productfilterbefore.repository.IProductRepository
 import spock.lang.Specification
 

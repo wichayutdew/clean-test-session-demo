@@ -1,43 +1,35 @@
 package com.example.productfilterbefore
 
 import com.example.productfilterbefore.model.Product
+import com.example.productfilterbefore.productfilter.ColorFilterSpecification
+import com.example.productfilterbefore.productfilter.ProductFilter
 import spock.lang.Specification
 
 class ProductFilterTest extends Specification {
 
-  def productFilter = new ProductFilter()
   def productsForColorFilter
 
   void setup() {
-    def product1 = Stub(Product) {
-      getColor() >> "RED"
-      getSize() >> "BIG"
-      getName() >> "BIG RED PRODUCT"
-    }
-    def product2 = Stub(Product) {
-      getColor() >> "BLUE"
-      getSize() >> "SMALL"
-      getName() >> "SMALL BLUE PRODUCT"
-    }
-    def product3 = Stub(Product) {
-      getColor() >> "RED"
-      getSize() >> "MEDIUM"
-      getName() >> "MEDIUM RED PRODUCT"
-    }
-    productsForColorFilter = [product1, product2, product3]
+    productsForColorFilter = [Stub(Product),Stub(Product),Stub(Product)]
   }
 
-  def "should filter product by red color"() {
+  def "should filter product according to the result of filter specification"() {
     given:
-    def expectedProductAmount = 1
-    def expectedProductName = "BIG RED PRODUCT"
+    def expectedFilteredProducts = List.of(Stub(Product) {
+      getName() >> "BIG RED PRODUCT"
+    })
+    def colorFilterSpecification = Stub(ColorFilterSpecification) {
+      applyFilter(_ as List<Product>) >> expectedFilteredProducts
+    }
+
+    def productFilterSpecifications = List.of(colorFilterSpecification)
+    def productFilter = new ProductFilter(productFilterSpecifications)
 
     when:
-    def result = productFilter.filter(productsForColorFilter, "RED", "BIG")
+    def result = productFilter.filter(productsForColorFilter)
 
     then:
-    result.size() == expectedProductAmount
-    result[0].getName() == expectedProductName
-
+    result.size() == expectedFilteredProducts.size()
+    result[0].getName() == expectedFilteredProducts.get(0).getName()
   }
 }
