@@ -9,11 +9,11 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductService {
 
-  private final ProductFactory productFactory;
+  private final ProductFilter productFilter;
   private final ProductJpaRepositoryImpl productJpaRepositoryImpl;
 
   public void process(List<Product> products) {
-    List<Product> filteredProducts = productFactory.filter(products, "RED", "SIZE");
+    List<Product> filteredProducts = productFilter.filter(products, "RED", "SIZE");
 
     productJpaRepositoryImpl.save(filteredProducts);
   }

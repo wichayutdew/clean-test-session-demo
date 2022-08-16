@@ -6,9 +6,9 @@ import spock.lang.Specification
 
 class ProductServiceTest extends Specification {
 
-  def productFactory = Mock(ProductFactory)
+  def productFilter = Mock(ProductFilter)
   def productJpaRepositoryImpl = Mock(ProductJpaRepositoryImpl)
-  def productService = new ProductService(productFactory, productJpaRepositoryImpl)
+  def productService = new ProductService(productFilter, productJpaRepositoryImpl)
   def product
   def products
 
@@ -25,7 +25,7 @@ class ProductServiceTest extends Specification {
     productService.process(products)
 
     then:
-    1 * productFactory.filter(products, _ as String, _ as String) >> filteredProducts
+    1 * productFilter.filter(products, _ as String, _ as String) >> filteredProducts
     1 * productJpaRepositoryImpl.save(filteredProducts)
   }
 }
