@@ -6,13 +6,42 @@ import spock.lang.Specification
 class ProductFactoryTest extends Specification {
 
   def productFactory = new ProductFactory()
-  def products
+  def productsForColorFilter
+  def productForAreaCalculation
 
   void setup() {
-    products = List.of(
-        new Product("RED", "BIG", "BIG RED PRODUCT", 10.00, 10.00, null, "RECTANGLE"),
-        new Product("BLUE", "SMALL", "SMALL BLUE PRODUCT", 20.00, 20, null, "RECTANGLE"),
-        new Product("RED", "MEDIUM", "MEDIUM RED PRODUCT", null, null, 10, "CIRCLE"))
+    def product1 = Stub(Product) {
+      color >> "RED"
+      size >> "BIG"
+      name >> "BIG RED PRODUCT"
+    }
+    def product2 = Stub(Product) {
+      color >> "BLUE"
+      size >> "SMALL"
+      name >> "SMALL BLUE PRODUCT"
+    }
+    def product3 = Stub(Product) {
+      color >> "RED"
+      size >> "MEDIUM"
+      name >> "MEDIUM RED PRODUCT"
+    }
+    productsForColorFilter = [product1, product2, product3]
+
+    def product4 = Stub(Product) {
+      width >> 10.00
+      height >> 10.00
+      shape >> "RECTANGLE"
+    }
+    def product5 = Stub(Product) {
+      width >> 20.00
+      height >> 20.00
+      shape >> "RECTANGLE"
+    }
+    def product6 = Stub(Product) {
+      radius >> 10
+      shape >> "CIRCLE"
+    }
+    productForAreaCalculation = [product4, product5, product6]
   }
 
   def "should filter product by red color"() {
@@ -21,7 +50,7 @@ class ProductFactoryTest extends Specification {
     def expectedProductName = "BIG RED PRODUCT"
 
     when:
-    def result = productFactory.filter(products, "RED", "BIG")
+    def result = productFactory.filter(productsForColorFilter, "RED", "BIG")
 
     then:
     result.size() == expectedProductAmount
@@ -33,7 +62,7 @@ class ProductFactoryTest extends Specification {
     def expectedTotalArea = 814
 
     when:
-    def result = productFactory.calculateArea(products)
+    def result = productFactory.calculateArea(productForAreaCalculation)
 
     then:
     Math.round(result) == expectedTotalArea

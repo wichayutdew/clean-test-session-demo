@@ -9,18 +9,18 @@ class ProductServiceTest extends Specification {
   def productFactory = Mock(ProductFactory)
   def productJpaRepositoryImpl = Mock(ProductJpaRepositoryImpl)
   def productService = new ProductService(productFactory, productJpaRepositoryImpl)
+  def product
+  def products
 
-  def products = List.of(
-      new Product("RED", "BIG", "BIG RED PRODUCT",10.00, 10.00,null, "RECTANGLE"),
-      new Product("YELLOW", "BIG", "BIG YELLOW PRODUCT",10.00, 10.00,null, "RECTANGLE"),
-      new Product("BLUE", "SMALL", "SMALL BLUE PRODUCT",10.00, 10.00,null, "RECTANGLE"),
-      new Product("RED", "MEDIUM", "MEDIUM RED PRODUCT",10.00, 10.00,null, "RECTANGLE"))
-
-  def filteredProducts = List.of(
-      new Product("RED", "BIG", "BIG RED PRODUCT",10.00, 10.00,null, "RECTANGLE"),
-      new Product("RED", "MEDIUM", "MEDIUM RED PRODUCT",10.00, 10.00,null, "RECTANGLE"))
+  void setup() {
+    product = Stub(Product)
+    products = [product, product, product, product]
+  }
 
   def "should filter and save products when process"() {
+    given:
+    def filteredProducts = [product, product]
+
     when:
     productService.process(products)
 
